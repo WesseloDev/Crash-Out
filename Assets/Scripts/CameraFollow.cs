@@ -32,6 +32,9 @@ public class CameraFollow : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.Instance.gameActive)
+            return;
+
         _currentHorizontalRotation += Input.GetAxis("Mouse X") * sensitivity;
         _currentVerticalRotation -= Input.GetAxis("Mouse Y") * sensitivity;
         _currentVerticalRotation = Mathf.Clamp(_currentVerticalRotation, verticalRotationMin, verticalRotationMax);
