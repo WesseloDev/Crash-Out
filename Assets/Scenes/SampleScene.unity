@@ -435,10 +435,12 @@ MonoBehaviour:
   rb: {fileID: 0}
   cam: {fileID: 963194227}
   animator: {fileID: 172732936}
+  mesh: {fileID: 172732937}
   speed: 400
+  rotateSpeed: 10
   jumpPower: 5
-  groundedCheckOffset: {x: 0, y: 0.26, z: 0}
-  groundedCheckRadius: 0.25
+  groundedCheckOffset: {x: 0, y: 0.12, z: 0}
+  groundedCheckRadius: 0.24
   groundedCheckDistance: 0.1
 --- !u!54 &1302212577
 Rigidbody:
@@ -489,7 +491,7 @@ CapsuleCollider:
   m_Radius: 0.25
   m_Height: 1.75
   m_Direction: 1
-  m_Center: {x: 0, y: 0.875, z: 0}
+  m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!4 &1302212579
 Transform:
   m_ObjectHideFlags: 0

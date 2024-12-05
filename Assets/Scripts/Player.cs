@@ -50,6 +50,7 @@ public class Player : MonoBehaviour
         mesh.transform.rotation = Quaternion.LookRotation(_direction);
 
         animator.SetBool("grounded?", _isGrounded);
+        Debug.Log(_isGrounded);
         animator.SetFloat("speed", _input.magnitude * speed);
     }
 
