@@ -49,6 +49,10 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    /// <summary>
+    /// Show end screen, updating text depending on if the player wins or fails.
+    /// </summary>
+    /// <param name="success"></param>
     public void EndGame(bool success = false)
     {
         gameActive = false;

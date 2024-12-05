@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public Camera cam;
     public Animator animator;
     public Transform mesh;
+    //public RagdollHandler ragdoll;
 
     // Movement variables
     public float speed = 10f;
@@ -26,8 +27,11 @@ public class Player : MonoBehaviour
     private Vector3 _velocity;
     private Vector3 _direction;
 
+    private bool _isRagdolled = false;
     private bool _isJumping = false;
     private bool _isGrounded => IsGrounded();
+
+    private WaitForSeconds _ragdollTime;
 
     void Awake()
     {
@@ -43,19 +47,26 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (_isRagdolled)
+            return;
+
         MoveInput();
         JumpInput();
 
+        // Rotates the models mesh to the move direction.
         _direction = Vector3.Slerp(_direction, _input.magnitude > 0 ? _input : _direction, rotateSpeed * Time.deltaTime);
         mesh.transform.rotation = Quaternion.LookRotation(_direction);
 
+        // Update values for animator.
         animator.SetBool("grounded?", _isGrounded);
-        Debug.Log(_isGrounded);
         animator.SetFloat("speed", _input.magnitude * speed);
     }
 
     void FixedUpdate()
     {
+        if (_isRagdolled)
+            return;
+
         if (_input.magnitude > 1)
             _input.Normalize();
 
@@ -90,7 +101,6 @@ public class Player : MonoBehaviour
     {
         rb.AddForce(Vector3.up * jumpPower, ForceMode.VelocityChange);
         _isJumping = true;
-        Debug.Log("Jumping");
         animator.SetTrigger("jump");
     }
 
@@ -115,4 +125,23 @@ public class Player : MonoBehaviour
 
         return false;
     }
+
+    /*public void GetHit(float downTime)
+    {
+        if (_isRagdolled)
+            return;
+
+        _isRagdolled = true;
+        ragdoll.Toggle(true);
+        StartCoroutine(GetUp(downTime));
+    }
+
+    private IEnumerator GetUp(float downTime)
+    {
+        yield return new WaitForSeconds(downTime);
+
+        ragdoll.Toggle(false);
+
+        _isRagdolled = false;
+    }*/
 }

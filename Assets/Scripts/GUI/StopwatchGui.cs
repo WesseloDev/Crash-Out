@@ -14,6 +14,7 @@ public class StopwatchGui : MonoBehaviour
         if (!GameManager.Instance.gameActive)
             return;
 
+        // Convert elapsed time from seconds to a readable format.
         var time = TimeSpan.FromSeconds(GameManager.Instance.elapsedTime);
 
         text.text = string.Format("{0:0}:{1:00}", time.Minutes, time.Seconds);

@@ -35,6 +35,7 @@ public class CameraFollow : MonoBehaviour
         if (!GameManager.Instance.gameActive)
             return;
 
+        // Camera rotation
         _currentHorizontalRotation += Input.GetAxis("Mouse X") * sensitivity;
         _currentVerticalRotation -= Input.GetAxis("Mouse Y") * sensitivity;
         _currentVerticalRotation = Mathf.Clamp(_currentVerticalRotation, verticalRotationMin, verticalRotationMax);
@@ -42,6 +43,7 @@ public class CameraFollow : MonoBehaviour
         transform.localEulerAngles = new Vector3(0, _currentHorizontalRotation, 0);
         boomTransform.localEulerAngles = new Vector3(_currentVerticalRotation, 0, 0);
 
+        // Move camera away from walls
         Vector3 directionToCamera = (cameraTransform.position - transform.position).normalized;
         if (Physics.Raycast(transform.position, directionToCamera, out RaycastHit hit, _idealCameraZoom, avoidLayer))
             _currentCameraZoom = hit.distance;
